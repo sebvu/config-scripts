@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 output () {
     SEND="dunstify -t 1000 -r 2000 -u normal -i "$HOME/.config/dunst/icons/$1-$(echo "$2" | tr '[:upper:]' '[:lower:]').png""
@@ -46,11 +46,11 @@ check_state () {
     elif [ "${1}" = "m" ]; then
         STATE="capture" # microphone toggle
     else 
-        # dunstify -t 2000 -r 2000 -u critical "ERROR WITH CHECK_STATE INPUT" "${STATE} 2"
+        dunstify -t 2000 -r 2000 -u critical "ERROR WITH CHECK_STATE INPUT" "${STATE} 2"
         exit 2
     fi
 
-    MEOW=$(amixer get ${STATE^} | grep "Front Left:" | awk -F'[][]' '{print $4}')
+    MEOW=$(amixer get ${STATE^} | tail -n1 | awk -F'[][]' '{print $4}')
 
     if [ "${MEOW}" = "on" ]; then
         amixer set ${STATE^} toggle 
