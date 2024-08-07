@@ -18,7 +18,7 @@ bedtime_check () {
 }
 
 shutdown_timer () {
-    for i in {5..1}
+    for i in {30..1}
     do
         notify-send -t 2000 -r 1234 -u critical "BEDTIME" "You should be asleep? Shutting down in $i seconds."
         sleep 1 
