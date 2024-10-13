@@ -60,7 +60,6 @@ color_mixer() {
 }
 
 main_generate() {
-echo $#
     if [ $# -lt 3 ]; then
         echo -e "\033[1;31mToo little arguments.\nUSAGE: $0 [webdev|infosec|tutoring|mainline] [file-name] [url]"
     elif [ $# -gt 3 ]; then
@@ -89,13 +88,7 @@ echo $#
         esac
         OVERLAY_IMAGE="$PATH_TO_IMAGES/$OPTION.png"
 
-        mkdir -p "$PATH_TO_QRCODES/TMP/"
-        qrencode -o "$PATH_TO_QRCODES/TMP/temporary.png" -l H -s 32 "$URL"
-        magick "$PATH_TO_QRCODES/TMP/temporary.png" -fill "$COLOR" -opaque black "$PATH_TO_QRCODES/TMP/temporary-recolored.png"
-        magick "$OVERLAY_IMAGE" -resize 300x300 "$PATH_TO_QRCODES/overlaytemp.png"
-        composite -gravity center "$PATH_TO_QRCODES/overlaytemp.png" "$PATH_TO_QRCODES/TMP/temporary-recolored.png" "$PATH_TO_QRCODES/$OPTION-$FILE_NAME.png"
-        rm -rf "$PATH_TO_QRCODES/TMP/"
-        echo -e "\033[1;32mQR Code Successfully Generated in $PATH_TO_QRCODES/$OPTION-$FILE_NAME.png"
+        generate "$OPTION" "$COLOR" "$OVERLAY_IMAGE" "$FILE_NAME" "$URL"
     fi
 }
 
@@ -131,7 +124,6 @@ collab_generate() {
 }
 
 custom_generate() {
-echo $#
     if [[ $# -lt 5 ]]; then
         echo -e "\033[1;31mToo little arguments.\nUsage: $0 [collab] [hex-value] [options/none/path-to-custom-screenshot] [file-name] [url]"
     elif [[ $# -gt 5 ]]; then
