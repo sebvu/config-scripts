@@ -100,7 +100,6 @@ echo $#
 }
 
 collab_generate() {
-echo $#
     if [[ $# -lt 4 ]]; then
         echo -e "\033[1;31mToo little arguments.\nUsage: $0 [collab] [file-name] [url] collab1, collab2...\nCollabs: cougarettes csgirls codecoogs"
     else
